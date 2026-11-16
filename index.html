@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101b1d" />
+  <meta name="description" content="Life of P — a 2D open-world sandbox action RPG. Phase 5 original Convergence story, multiple endings, legendary bosses, life-sim and Soulslike combat." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/hud.css" />
+  <link rel="stylesheet" href="css/modals.css" />
+  <title>Life of P · The Convergence</title>
+</head>
+<body>
+  <main id="game-shell" aria-label="Life of P game">
+    <canvas id="game-canvas" aria-label="Top-down fantasy game world"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="game-hud" id="game-hud" aria-live="off">
+      <section class="hud-panel status-panel" aria-label="Character status">
+        <div class="eyebrow"><span class="diamond-mark">◆</span> THE UNWRITTEN SOUL <span class="badge-level" id="generation-label">GEN 1</span></div>
+        <div class="hero-line"><span class="crest">P</span><div class="hero-ident"><strong id="player-name">Wanderer</strong><span>Unbound · Wayfarer’s Rest</span></div></div>
+        <div class="stat-block">
+          <div class="stat-row"><span class="stat-icon">✦</span><div class="stat-track"><div id="health-bar" class="stat-fill health"></div></div><span id="health-value">100 / 100</span></div>
+          <div class="stat-row"><span class="stat-icon">✧</span><div class="stat-track"><div id="mana-bar" class="stat-fill mana"></div></div><span id="mana-value">60 / 60</span></div>
+          <div class="stat-row"><span class="stat-icon">⌁</span><div class="stat-track"><div id="stamina-bar" class="stat-fill stamina"></div></div><span id="stamina-value">100 / 100</span></div>
+        </div>
+        <div class="status-footer"><span>⚔ <strong id="equipped-weapon">Wanderer’s Blade</strong></span><span class="gold-amount">◈ <span id="gold-value">120</span></span></div>
+      </section>
+
+      <section class="hud-panel world-panel" aria-label="World time">
+        <div class="world-panel-top"><span id="weather-icon" class="weather-icon">☀</span><div><span id="region-name" class="region-name">THE ASHEN VERGE</span><span id="date-label" class="date-label">Spring · Day 1</span><span id="weather-label" class="date-label">✧ CLEAR SKY</span><span id="world-event-label" class="date-label">✦ QUIET SKIES</span></div><button class="icon-button" type="button" aria-label="Pause game" title="Pause · Esc" data-action="pause">☷</button></div>
+        <div class="time-row"><span id="time-label">08:20</span><span id="time-period">MORNING</span></div>
+        <div class="time-track"><div id="time-progress" class="time-fill"></div></div>
+      </section>
+
+      <section class="hud-panel quest-panel" aria-label="Active quest">
+        <span class="tiny-label">✧ CURRENT OBJECTIVE</span>
+        <h2 id="quest-name">The First Ember</h2>
+        <p id="quest-description">Find the old waystone beyond the southern crossroads.</p>
+        <button class="text-button" type="button" data-action="journal">VIEW JOURNAL <span>↗</span></button>
+      </section>
+
+      <section class="map-panel" aria-label="Minimap">
+        <div class="map-heading"><span>✦ <span id="mini-zone">THE ASHEN VERGE</span></span><button class="map-expand" data-action="map" aria-label="Open world map" title="World map · M">⤢</button></div>
+        <canvas id="minimap-canvas" width="224" height="168" aria-label="World minimap"></canvas>
+        <div class="map-coordinates"><span id="coords">X 00 · Y 00</span><span>✦ NORTH</span></div>
+      </section>
+
+      <section id="boss-hud" class="boss-hud hidden" aria-label="Elite enemy health"><div class="boss-name"><span id="boss-name-text">✦ THE ASHEN WARDEN</span><span id="boss-health-value">265 / 265</span></div><div class="boss-track"><div id="boss-health"></div></div></section>
+      <section class="combat-panel" aria-label="Combat controls">
+        <div class="combat-heading"><span>⚔ COMBAT STANCE</span><small id="kill-count">0 ENEMIES DEFEATED</small></div>
+        <div class="combat-buttons">
+          <button type="button" data-action="light-attack" title="Light attack · F or Left click"><kbd>F</kbd><span>LIGHT</span><small id="light-state">READY</small></button>
+          <button type="button" data-action="heavy-attack" title="Heavy attack · R or Right click"><kbd>R</kbd><span>HEAVY</span><small id="heavy-state">READY</small></button>
+          <button type="button" data-action="parry" title="Timed parry · Q"><kbd>Q</kbd><span>PARRY</span><small id="parry-state">READY</small></button>
+        </div>
+      </section>
+      <div id="interact-prompt" class="interact-prompt hidden"><span class="keycap">E</span><span id="interact-label">Inspect</span></div>
+
+      <nav class="hotbar" aria-label="Gameplay actions">
+        <button data-action="journal" class="hotbar-button" title="Journal · J"><span class="hotbar-icon">◈</span><span>Journal</span><kbd>J</kbd></button>
+        <button data-action="map" class="hotbar-button" title="Map · M"><span class="hotbar-icon">⌖</span><span>Map</span><kbd>M</kbd></button>
+        <button data-action="inventory" class="hotbar-button" title="Inventory · I"><span class="hotbar-icon">▦</span><span>Inventory</span><kbd>I</kbd></button>
+        <button data-action="life" class="hotbar-button" title="Life-sim guide · L"><span class="hotbar-icon">❀</span><span>Life</span><kbd>L</kbd></button>
+        <button data-action="crafting" class="hotbar-button" title="Crafting · C"><span class="hotbar-icon">⚒</span><span>Craft</span><kbd>C</kbd></button>
+        <button data-action="nemesis" class="hotbar-button" title="Nemesis board · N"><span class="hotbar-icon">♜</span><span>Nemesis</span><kbd>N</kbd></button><button data-action="story-board" class="hotbar-button story-hotbar" title="Convergence story · O"><span class="hotbar-icon">✧</span><span>Story</span><kbd>O</kbd></button>
+        <span class="hotbar-separator"></span><button id="audio-toggle" data-action="audio" class="hotbar-button" title="Enable original game sound">♪ Sound OFF</button>
+        <button data-action="controls" class="hotbar-button" title="Controls · H"><span class="hotbar-icon">?</span><span>Controls</span><kbd>H</kbd></button>
+      </nav>
+      <div class="roll-hint"><span class="keycap">SPACE</span> TO DODGE <span id="roll-ready" class="roll-ready">● READY</span></div>
+      <div class="mobile-controls" aria-label="Touch movement controls"><div class="mobile-pad"><button data-move="up" aria-label="Move up">▲</button><div><button data-move="left" aria-label="Move left">◀</button><button data-move="down" aria-label="Move down">▼</button><button data-move="right" aria-label="Move right">▶</button></div></div><div class="mobile-actions"><button data-action="light-attack">⚔</button><button data-action="heavy-attack">HEAVY</button><button data-action="parry">PARRY</button><button class="mobile-dodge" data-action="dodge">DODGE</button><button class="mobile-interact" data-action="interact">E</button></div></div>
+    </div>
+
+    <section id="start-overlay" class="start-overlay" aria-labelledby="game-title">
+      <div class="intro-content">
+        <div class="intro-badge"><span class="intro-icon">✧</span> A LIFE BEYOND THE BLADE AWAITS <span class="intro-icon">✧</span></div>
+        <div class="intro-rule"></div>
+        <p class="intro-pretitle">THE CONVERGENCE OF ASHES</p>
+        <h1 id="game-title">LIFE <em>OF</em> P</h1>
+        <p class="intro-tagline">One soul. A thousand destinies.</p>
+        <p class="intro-description">Explore a living valley. Defeat the guardians of three ancient sigils, choose between restoration, conquest or family, and shape the fate of the Convergence.</p>
+        <div class="intro-actions"><button type="button" class="primary-button" data-action="new-game"><span>BEGIN YOUR JOURNEY</span><span class="button-arrow">↗</span></button><button id="continue-button" type="button" class="secondary-button hidden" data-action="continue-game">CONTINUE JOURNEY</button></div>
+        <div class="intro-footnote"><span>✦ PLAYABLE PROTOTYPE · PHASE 05</span><span>BUILT WITH HTML5 CANVAS + JAVASCRIPT</span></div>
+      </div>
+      <div class="intro-side-label">THE ASHEN VERGE <span>—</span> 0001</div>
+      <div class="intro-bottom-label">A 2D OPEN-WORLD SANDBOX</div>
+    </section>
+
+    <section id="death-overlay" class="death-overlay hidden" aria-labelledby="death-title"><div class="pause-card"><p class="eyebrow">THE FLAME IS NOT YET EXTINGUISHED</p><h2 id="death-title">YOU HAVE FALLEN</h2><p>Rise again at Wayfarer’s Rest. You will lose 15% of your carried gold, but keep your equipment and progress.</p><button type="button" class="primary-button" data-action="respawn">RETURN TO THE CAMPFIRE <span>↗</span></button></div></section>
+    <section id="pause-overlay" class="pause-overlay hidden" aria-labelledby="pause-title">
+      <div class="pause-card"><p class="eyebrow">THE WORLD HOLDS ITS BREATH</p><h2 id="pause-title">PAUSED</h2><p>Your journey will be here when you return.</p><button class="primary-button" type="button" data-action="resume">RESUME JOURNEY <span>↗</span></button><button class="secondary-button" type="button" data-action="save">SAVE PROGRESS</button><button class="secondary-button" type="button" data-action="export-save">EXPORT SAVE BACKUP (.JSON)</button><button class="secondary-button" type="button" data-action="import-save">IMPORT SAVE BACKUP</button><button class="secondary-button" type="button" data-action="main-menu">RETURN TO TITLE</button></div>
+    </section>
+
+    <div id="modal-backdrop" class="modal-backdrop hidden" role="presentation">
+      <section id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="modal-card"><div class="modal-header"><div><span id="modal-eyebrow" class="eyebrow">ARCHIVE</span><h2 id="modal-title">Journal</h2></div><button type="button" class="modal-close" aria-label="Close window" data-action="close-modal">✕</button></div><div id="modal-body" class="modal-body"></div></section>
+    </div>
+
+    <div id="epilogue-overlay" class="epilogue-overlay hidden" role="dialog" aria-label="Your ending" aria-modal="true"></div>
+    <input id="save-import-file" class="hidden" type="file" accept=".json,application/json" aria-label="Import Life of P save" />
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div class="build-label">LIFE OF P <span>·</span> PHASE 5 <span>·</span> v0.5.0</div>
+  </main>
+  <!--
+    From Live Server: load the editable ES modules directly.
+    From a double-click (file://): load a generated classic JS bundle.
+    This supports beginners while keeping the project neatly modular for VS Code.
+  -->
+  <script>
+    (function () {
+      var localFile = window.location.protocol === 'file:';
+      var script = document.createElement('script');
+      if (!localFile) script.type = 'module';
+      script.src = localFile ? 'js/offline.bundle.js' : 'js/main.js';
+      var reported = false;
+      function showError() {
+        if (reported || window.__lifeOfPReady) return;
+        reported = true;
+        var box = document.createElement('div');
+        box.setAttribute('role', 'alert');
+        box.style.cssText = 'position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:100;background:#2b1717;border:1px solid #f2ad93;color:#fff3ed;padding:14px 18px;max-width:90vw;font:13px/1.5 system-ui;text-align:center;box-shadow:0 10px 30px #000a';
+        box.innerHTML = '<strong>Unable to start Life of P.</strong> Open the complete extracted game folder in VS Code, then right-click index.html → Open with Live Server. If the problem continues, press F12 → Console to view the error.';
+        document.body.appendChild(box);
+      }
+      script.onerror = showError;
+      document.body.appendChild(script);
+      window.setTimeout(showError, 3000);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+.pause-overlay,.modal-backdrop{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:rgba(4,11,13,.77);backdrop-filter:blur(7px);padding:22px}.pause-card{text-align:center;max-width:360px;width:100%;padding:37px 30px;background:linear-gradient(135deg,#152625,#0a1719);border:1px solid #cead7145;box-shadow:0 20px 80px #000a}.pause-card h2{font:56px Georgia,serif;font-weight:normal;letter-spacing:.15em;margin:12px 0}.pause-card>p:nth-of-type(2){font-size:12px;color:#bdc4b8;margin:0 0 29px}.pause-card button{width:100%;margin-bottom:10px}.modal-card{width:min(680px,95vw);max-height:min(82vh,810px);overflow:hidden;background:linear-gradient(135deg,#172724,#0d1c1c 80%);border:1px solid #ceb78666;box-shadow:0 26px 80px #000b;display:flex;flex-direction:column}.modal-header{padding:25px 30px 20px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #c8b08036}.modal-header h2{font:36px Georgia,serif;font-weight:normal;margin:10px 0 0}.modal-close{border:1px solid #bda7785c;background:#c6a97613;color:#e3cfac;width:32px;height:32px;font-size:14px}.modal-body{overflow:auto;padding:25px 30px 30px;color:#cdd1c5;font-size:13px;line-height:1.8}.modal-body h3{font:20px Georgia,serif;color:#f0ddbd;margin:0 0 8px}.modal-body p{margin:0 0 16px}.modal-body .subtle{color:#99a9a2}.modal-body .tag{border:1px solid #caad794a;color:#dfc698;font-size:9px;letter-spacing:.1em;display:inline-block;padding:3px 9px;margin-bottom:10px}.modal-body .feature-list{margin:0;padding-left:17px}.modal-body .feature-list li{margin-bottom:8px}.modal-body .feature-list li::marker{color:#d3af71}.modal-body .objective-card{border-left:2px solid #c6a56f;background:#c6a56f0b;padding:13px 16px;margin-bottom:19px}.modal-body .objective-card strong{color:#e8d0a9;font:20px Georgia,serif}.modal-body .objective-card p{margin:6px 0 0}.modal-body .phase-card{padding:12px 15px;border:1px solid #b9a67933;background:#0815153f}.modal-body .grid-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.modal-body .control-item{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #ac9e7729;padding:9px 0}.modal-body .control-item kbd{font-size:11px;color:#e6c68f;border:1px solid #bba5775e;background:#172b29;padding:2px 8px;white-space:nowrap}.modal-body .control-item span{font-size:12px}.modal-body .map-large{display:block;width:100%;height:auto;aspect-ratio:4/3;background:#20342c;border:1px solid #c9ac7844;image-rendering:pixelated;margin-bottom:13px}.modal-body .legend{display:flex;flex-wrap:wrap;gap:16px;color:#b4c5b6;font-size:11px}.modal-body .legend i{width:9px;height:9px;display:inline-block;border-radius:50%;margin-right:5px}.toast{position:absolute;top:123px;left:50%;transform:translateX(-50%);z-index:30;padding:11px 20px;background:#0c1e1de8;border:1px solid #dfbe7b77;font-size:11px;letter-spacing:.09em;color:#ebd5b0;white-space:nowrap;box-shadow:0 14px 26px #0008}.toast::before{content:"✧";color:#e9c88f;margin-right:10px}@media(max-width:680px){.modal-header{padding:18px}.modal-header h2{font-size:29px}.modal-body{padding:17px}.modal-body .grid-two{grid-template-columns:1fr}.toast{top:145px;max-width:94%;white-space:normal;text-align:center}}
+/* Phase 2 · Inventory equipment cards and defeat overlay */
+.inventory-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:24px}
+.inventory-summary>div{border:1px solid #bfa97d49;background:#182928a3;padding:12px;display:flex;flex-direction:column;gap:7px}
+.inventory-summary .eyebrow{font-size:9px}.inventory-summary strong{font:17px Georgia,serif;color:#eddbc2}
+.inventory-summary span:last-child{font-size:10px;color:#a6b8b0}
+.inventory-list{display:grid;gap:8px;margin:12px 0 20px}
+.inventory-item{display:flex;align-items:center;gap:13px;border:1px solid #bfa97d32;background:linear-gradient(90deg,#0c1e20,#1b2825);padding:12px}
+.item-gem{color:var(--rarity);font-size:27px;text-shadow:0 0 17px var(--rarity)}
+.item-detail{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.item-detail strong{font-size:13px;color:#f1e0c7}.item-detail span{font-size:10px;letter-spacing:.07em}.item-detail small{font-size:10px;color:#9aaca4;line-height:1.5}
+.equip-button{background:#d7b97d1f;border:1px solid #d7b97d80;color:#f0d6a7;min-width:72px;padding:9px 10px;font-size:10px;letter-spacing:.09em}
+.equip-button:disabled{opacity:.52;cursor:default}.equip-button:not(:disabled):hover{background:#e8c58c38}
+.death-overlay{position:absolute;inset:0;z-index:19;background:radial-gradient(ellipse at center,#250e0bd4,#060e11f2);display:grid;place-items:center}.death-overlay .pause-card{border:1px solid #c6826f69;box-shadow:0 0 110px #7d231638}.death-overlay h2{color:#e1a08e}
+@media(max-width:680px){.inventory-summary{grid-template-columns:1fr}.inventory-summary>div{padding:9px}.inventory-item{gap:8px;padding:9px}.equip-button{min-width:61px;font-size:9px;padding:8px}}
+/* Phase 3 · Friendly, legible life-sim interfaces */
+.life-hero{padding:17px 18px;margin:0 0 18px;border:1px solid #a8be8557;background:linear-gradient(135deg,#283b30bb,#15292692)}
+.life-hero>span,.life-stats>div>span{font-size:9px;color:#d1c08e;letter-spacing:.17em}
+.life-hero h3{margin:7px 0 6px;font:23px Georgia,serif;color:#f0dfc5}
+.life-hero p{margin:0;color:#bacfc0;font-size:12px}
+.life-actions{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 20px;align-items:center}
+.life-button{padding:10px 12px;border:1px solid #c8ae747c;background:#c8ae7417;color:#f6ddb0;text-align:center;font-size:11px;letter-spacing:.04em;cursor:pointer;transition:background .15s}
+.life-button:hover:not(:disabled){background:#c8ae7440}
+.life-button:disabled{opacity:.45;cursor:not-allowed}
+.life-meter{height:7px;border:1px solid #b89e6f60;background:#0d221f;margin:10px 0}
+.life-meter>div{height:100%;background:linear-gradient(90deg,#8b9274,#e6bb82)}
+.life-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0 20px}
+.life-card{border:1px solid #cdb18343;background:#132725;padding:15px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.life-card strong{font-size:13px;color:#f0d6aa}.life-card p{margin:0;color:#bbcdc2;font-size:11px;line-height:1.6}
+.life-card small{font-size:10px;color:#a4bead;line-height:1.7}
+.life-card .life-button{margin-top:auto}
+.life-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 20px}
+.life-stats>div{border:1px solid #b9a97b48;background:#1a322e;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.life-stats strong{font:18px Georgia,serif;color:#f3dfbb}.life-stats small{font-size:10px;color:#b5c6b6;line-height:1.5}
+.life-steps{padding-left:19px;color:#c5d3c5}.life-steps li{margin:0 0 10px}.life-steps kbd{color:#edc987}
+@media(max-width:680px){.life-card-grid{grid-template-columns:1fr}.life-stats{grid-template-columns:1fr}.life-stats>div{padding:9px}.life-button{padding:9px;font-size:10px}}
+/* Phase 4 · Captain hierarchy and choose-your-fate dialogue */
+.nemesis-head{display:grid;gap:2px;margin-bottom:17px}.nemesis-head p{color:#b6c8b8;margin-bottom:0}
+.nemesis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 25px}
+.nemesis-card{position:relative;padding:18px;border:1px solid #c29e6c66;background:radial-gradient(ellipse at top right,#4b323b70,#112322 70%);min-width:0}
+.nemesis-card.recruited{border-color:#6fb7a69c;background:radial-gradient(ellipse at top right,#1c514670,#112322 70%)}
+.nemesis-card.fallen{opacity:.7}.nemesis-card.vanquished{opacity:.5;filter:grayscale(.55)}
+.captain-crown{display:flex;align-items:center;gap:9px;font-size:21px;color:#ebc68b}
+.captain-crown span{font-size:10px;letter-spacing:.16em}.nemesis-card h3{margin:12px 0 4px;color:#e9d2b2;font-size:19px;line-height:1.23}
+.captain-status{color:#91cabb;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.nemesis-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:15px 0;font-size:10px;color:#b7c7b8}
+.nemesis-card p{font-size:12px;line-height:1.65;margin:0}.nemesis-card p strong{color:#eacb91}
+.rival-history{border-left:1px solid #c0a77963;padding:3px 0 3px 18px;margin:11px 0 21px}.rival-history p{margin:0 0 9px;font-size:11px;color:#b9cbbd}
+.dialogue-choices{display:grid;gap:9px;margin:17px 0}
+.dialogue-choice{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;padding:15px 17px;border:1px solid #a698737e;background:linear-gradient(100deg,#283934,#162a2b);color:#f1dbb8;cursor:pointer;transition:border-color .15s,transform .15s,background .15s}
+.dialogue-choice:hover,.dialogue-choice:focus-visible{border-color:#efd69a;transform:translateX(2px);background:linear-gradient(100deg,#3a483e,#1a3130)}
+.dialogue-choice strong{font-size:13px}.dialogue-choice span{font-size:10px;color:#a8c8b7;letter-spacing:.11em}
+@media (min-width:850px){.modal-card:has(.nemesis-grid){width:min(870px,92vw)}}
+@media(max-width:680px){.nemesis-grid{grid-template-columns:1fr}.nemesis-card{padding:14px}.nemesis-meta{grid-template-columns:1fr 1fr}}
+
+/* Phase 5 · choice, sigils, and epilogue */
+.story-lead{padding:22px 23px 18px;background:radial-gradient(ellipse at 80% 0,#6145346a,transparent 70%),linear-gradient(120deg,#26382e,#102222);border:1px solid #cbaa745b;margin-bottom:20px}
+.story-lead h3{font:29px Georgia,serif;color:#f2d5a2;margin:10px 0 12px}.story-lead p{color:#c2d2c4;margin:0}
+.story-progress{display:flex;align-items:center;justify-content:space-between;letter-spacing:.12em;font-size:10px;color:#c7c1a6;margin:13px 0 10px}
+.story-progress strong{font:24px Georgia,serif;color:#edd294}
+.story-sigils{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:23px}
+.story-sigil{border:1px solid #b49b6c55;padding:14px 12px;background:#121e20;display:flex;flex-direction:column;gap:7px;min-width:0}
+.story-sigil.earned{background:linear-gradient(140deg,#3d4538,#162a25);border-color:#e7cc8e}
+.sigil-icon{color:#dfbf7d;font:28px Georgia,serif}.story-sigil strong{font-size:12px;line-height:1.35;color:#f0d9b1}.story-sigil small{font-size:9px;letter-spacing:.1em;color:#98c6a3}
+.story-sigil p{font-size:10px;line-height:1.6;margin:0;color:#aebfb8}.story-choices{display:grid;gap:12px;margin:15px 0 22px}
+.story-ending{padding:22px;border:1px solid #d5ba83;background:radial-gradient(ellipse at top,#74563b75,#122725 70%);text-align:center;margin-bottom:23px}
+.story-ending>span{font-size:10px;letter-spacing:.22em;color:#d2c39d}.story-ending h3{font:30px Georgia,serif;color:#f4daaa;margin:15px 0}
+.epilogue-overlay{position:absolute;inset:0;z-index:35;background:radial-gradient(ellipse at center,#3a2f24fa,#0b191bfa 75%);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center;overflow:auto}
+.epilogue-overlay h2{font:clamp(32px,6vw,66px) Georgia,serif;letter-spacing:.13em;color:#f1d4a2;margin:10px 0 20px}
+.epilogue-overlay>p:not(.eyebrow){max-width:690px;font-size:15px;line-height:1.9;color:#d6dccf}
+.epilogue-crown{font:clamp(54px,12vw,112px) Georgia,serif;color:#edd097;text-shadow:0 0 70px #d79c3e85}
+.epilogue-stats{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin:28px 0 34px;color:#edd3a6;font-size:11px;letter-spacing:.12em}
+.epilogue-overlay .primary-button{max-width:450px}
+@media(max-width:680px){.story-sigils{grid-template-columns:1fr}.story-sigil{padding:12px}.story-lead{padding:17px}.story-lead h3{font-size:25px}}
